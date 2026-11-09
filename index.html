@@ -52,7 +52,8 @@
     .hero{position:relative;min-height:100svh;color:#f5f5f0;background:#121819;isolation:isolate;overflow:hidden;padding-top:var(--head-h)}
     .hero:before{position:absolute;content:"";z-index:-1;inset:0;background:radial-gradient(ellipse 55% 90% at -14% 40%,rgba(67,82,80,.4),transparent 68%),linear-gradient(130deg,#13191a 10%,#161d1e 62%,#222c2d);pointer-events:none}
     .hero-main{min-height:calc(100svh - var(--head-h));display:grid;grid-template-columns:57% 43%;align-items:center;position:relative;padding-block:clamp(64px,8vh,94px) clamp(132px,15vh,164px)}
-    .hero-art{position:absolute;inset:0 -15vw 0 42%;overflow:hidden;z-index:-1}
+    /* Fade the whole photo layer into the underlying background, including its overlay. */
+    .hero-art{position:absolute;inset:0 -15vw 0 42%;overflow:hidden;z-index:-1;-webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.04) 9%,rgba(0,0,0,.2) 22%,rgba(0,0,0,.52) 39%,rgba(0,0,0,.83) 57%,#000 78%);mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.04) 9%,rgba(0,0,0,.2) 22%,rgba(0,0,0,.52) 39%,rgba(0,0,0,.83) 57%,#000 78%)}
     .hero-art img{width:100%;height:100%;object-fit:cover;object-position:55% 46%;filter:saturate(.75) contrast(1.06) brightness(.78);transform:scale(1.08);animation:hero-settle 2s var(--ease) both}
     .hero-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#121819 0%,rgba(18,24,25,.95) 8%,rgba(18,24,25,.58) 37%,rgba(18,24,25,.04) 72%),linear-gradient(0deg,#121819 0%,transparent 32%,rgba(17,23,24,.27) 100%)}
     .hero-copy{z-index:2;max-width:850px}
@@ -175,6 +176,12 @@
       .mobile-cta{position:fixed;z-index:75;inset:auto 12px 12px;display:flex;align-items:center;justify-content:center;gap:12px;background:linear-gradient(110deg,#e8b98b,#cd9161);color:#17201e;border:1px solid rgba(255,255,255,.28);border-radius:3px;font-size:14px;font-weight:800;padding:15px 15px calc(15px + env(safe-area-inset-bottom));box-shadow:0 10px 34px rgba(0,0,0,.28);transition:transform .3s var(--ease)}.mobile-cta svg{width:18px;height:18px}.mobile-cta.hide{transform:translateY(calc(120% + 16px))}.viewer{padding:68px 8px 70px}.viewer-prev{left:7px}.viewer-next{right:7px}.viewer-close{right:12px;top:12px}.viewer button{width:37px;height:37px}
     }
     @media(max-width:420px){.hero{min-height:860px}.hero-main{min-height:860px;padding-top:64px}.hero h1{font-size:clamp(42px,12vw,50px)}.hero .eyebrow{font-size:9px}.hero-actions{gap:9px}.button{min-height:54px;padding:14px 17px;gap:13px;font-size:12px}.proof{padding-right:8px}.proof strong{font-size:18px}.proof span{font-size:9px}.service-item{padding-left:18px;grid-template-columns:46px 1fr;gap:14px}.service-icon{width:46px;height:46px}.service-body h3{font-size:21px}.work-grid{grid-template-columns:1fr;grid-auto-rows:260px}.work-tile:first-child,.work-tile:last-child{grid-column:auto;min-height:0}.materials-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.material h3{font-size:17px;left:11px;bottom:12px}.contact-title{font-size:48px}.big-phone{font-size:clamp(30px,8vw,39px)}.channel{padding:11px 12px;font-size:12px}.section{padding-block:73px}}
+    @media(max-width:760px){
+      .hero-art{-webkit-mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.04) 8%,rgba(0,0,0,.22) 20%,rgba(0,0,0,.58) 36%,rgba(0,0,0,.87) 53%,#000 72%);mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.04) 8%,rgba(0,0,0,.22) 20%,rgba(0,0,0,.58) 36%,rgba(0,0,0,.87) 53%,#000 72%)}
+      .section-title{overflow-wrap:anywhere}.service-body{min-width:0;overflow-wrap:anywhere}
+      .material h3{right:12px;overflow-wrap:anywhere}
+    }
+    @media(max-width:360px){.proof strong{font-size:15px}.proof+.proof{padding-left:8px}.proof{padding-right:6px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.js .reveal{opacity:1!important;transform:none!important}}
   </style>
   <script>document.documentElement.classList.add('js')</script>
@@ -287,7 +294,7 @@
         <a href="mailto:m9112855177@mail.ru" class="channel"><svg aria-hidden="true"><use href="#i-mail"/></svg>Написать на почту</a>
         <a href="https://t.me/stankoferum" target="_blank" rel="noopener noreferrer" class="channel" aria-label="Открыть Telegram СтанкоФерум"><svg aria-hidden="true"><use href="#i-tg"/></svg>Telegram</a>
         <button type="button" class="channel channel-copy" id="maxCopy" aria-label="Скопировать номер телефона для MAX"><svg aria-hidden="true"><use href="#i-max"/></svg><span>MAX</span></button>
-      </div></div>
+      </div><p id="copyStatus" role="status" aria-live="polite" style="font-size:12px;line-height:1.6;margin-top:12px;min-height:20px"></p></div>
       <div class="reveal delay-1"><div class="contact-detail"><span class="contact-label">АДРЕС МАСТЕРСКОЙ</span><strong>Санкт-Петербург<br>проспект Народного Ополчения, 2А</strong></div><div class="contact-detail"><span class="contact-label">ВРЕМЯ ДЛЯ ЗВОНКОВ</span><strong>Ежедневно, 08:00–22:00</strong></div><div class="contact-detail"><span class="contact-label">ЭЛЕКТРОННАЯ ПОЧТА</span><a href="mailto:m9112855177@mail.ru">m9112855177@mail.ru</a></div></div></div>
     </div></section>
   </main>
@@ -327,7 +334,17 @@
       document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(viewer.classList.contains('open'))closeViewer();else closeMenu()}if(viewer.classList.contains('open')){if(e.key==='ArrowRight')move(1);if(e.key==='ArrowLeft')move(-1);if(e.key==='Tab'){const buttons=[...viewer.querySelectorAll('button')];const idx=buttons.indexOf(document.activeElement);if(e.shiftKey&&idx===0){buttons[buttons.length-1].focus();e.preventDefault()}else if(!e.shiftKey&&idx===buttons.length-1){buttons[0].focus();e.preventDefault()}}}});
       if('IntersectionObserver' in window){const contactObserver=new IntersectionObserver(entries=>{document.getElementById('mobileCta').classList.toggle('hide',entries[0].isIntersecting)},{threshold:.05});contactObserver.observe(document.getElementById('contacts'))}
       const maxCopy=document.getElementById('maxCopy');let copyTimer;
-      const copyPhone=async()=>{const phone='+79112855177';try{await navigator.clipboard.writeText(phone)}catch{const field=document.createElement('textarea');field.value=phone;field.setAttribute('readonly','');field.style.position='fixed';field.style.opacity='0';document.body.appendChild(field);field.select();document.execCommand('copy');field.remove()}clearTimeout(copyTimer);maxCopy.classList.add('copied');maxCopy.setAttribute('aria-label','Номер телефона скопирован');copyTimer=setTimeout(()=>{maxCopy.classList.remove('copied');maxCopy.setAttribute('aria-label','Скопировать номер телефона для MAX')},1800)};
+      const copyPhone=async()=>{
+        const phone='+79112855177';let copied=false;
+        try{await navigator.clipboard.writeText(phone);copied=true}catch{
+          const field=document.createElement('textarea');field.value=phone;field.setAttribute('readonly','');field.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';document.body.appendChild(field);
+          try{field.focus();field.select();field.setSelectionRange(0,phone.length);copied=document.execCommand('copy')}catch{}finally{field.remove();maxCopy.focus({preventScroll:true})}
+        }
+        clearTimeout(copyTimer);maxCopy.classList.toggle('copied',copied);
+        document.getElementById('copyStatus').textContent=copied?'Номер +7 911 285-51-77 скопирован':'Не удалось скопировать. Номер: +7 911 285-51-77';
+        maxCopy.setAttribute('aria-label',copied?'Номер телефона скопирован':'Скопировать номер телефона для MAX');
+        copyTimer=setTimeout(()=>{maxCopy.classList.remove('copied');maxCopy.setAttribute('aria-label','Скопировать номер телефона для MAX')},2500);
+      };
       maxCopy.addEventListener('click',copyPhone);
       document.getElementById('year').textContent=new Date().getFullYear();
     })();
